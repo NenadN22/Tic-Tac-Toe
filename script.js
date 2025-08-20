@@ -10,13 +10,34 @@ function gameBoard () {
         }
         
     }
-    console.log(board)
+    const getBoard = () => board;
+    const dropMark = (row,column,player) => {
+        if(board[row][column].getValue() === 0 ) {
+            board[row][column].addMark(player);
+        }
+    };
+    const printBoard = () => {
+        const boardWithCellValues = board.map((row) => row.map((cell) => cell.getValue()));
+        console.log(boardWithCellValues);
+    };
+    return {
+        getBoard, dropMark ,printBoard
+    };
+   
+
 
 }
 
 function Cell () {
     let value = 0;
-    return value;
+    const getToken = (player) => {
+        value = player;
+    };
+    const getValue = () => value;
+    return {
+        getToken,
+        getValue
+    };
 }
 
 function ControlGame (
@@ -36,8 +57,12 @@ function ControlGame (
 ];
 let activePlayer = players[0]
 
-const switchActivePlayer = () => {
-    activePlayer =  activePlayer === players[0] ? players[1] ? players[0]
+const switchPlayerTurn = () => {
+    activePlayer =  activePlayer === players[0] ? players[1] : players[0];
+};
+const getActivePlayer = () => activePlayer
+const printNewRound = () => {
+    board.printBoard();
 }
 
 } 

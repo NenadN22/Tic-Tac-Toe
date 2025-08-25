@@ -15,7 +15,7 @@ function Gameboard () {
             available.push(idx)
             idx = board.indexOf(element, idx + 1);
         }
-        console.log(available)
+        return available
 
         
     }

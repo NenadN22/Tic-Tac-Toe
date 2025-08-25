@@ -6,7 +6,29 @@ function Gameboard () {
         " "," "," "
     ]
     const getBoard = () => board 
-    return {getBoard}
+
+    const availableCells = ()  => {
+        let available = [];
+        let element = " ";
+        let idx = board.indexOf(element)
+        while(idx !== -1) {
+            available.push(idx)
+            idx = board.indexOf(element, idx + 1);
+        }
+        console.log(available)
+
+        
+    }
+    
+    const addMark = (index,mark) => {
+        let availableCells = board;
+        if (availableCells[index] === " ") {
+            availableCells[index] = mark
+        }
+        
+    }
+    availableCells()
+    return {getBoard,addMark}
 }
 
 function GameFlow() {
@@ -16,9 +38,11 @@ function GameFlow() {
             mark: mark
         };
     }
+    // Kreirati igrace
     let playerOne = Player('Player One', 'X');
     let playerTwo = Player('PlayerTwo' , 'O');
     let players = [playerOne,playerTwo]
+    // Smjenjivati poteye igračima
     let activePlayer = players[0]
     const switchPlayersTurns = () => {
         activePlayer = activePlayer === players[0] ? players[1] : players[0]
@@ -32,3 +56,4 @@ function GameFlow() {
 }
 
 console.log(GameFlow())
+Gameboard()

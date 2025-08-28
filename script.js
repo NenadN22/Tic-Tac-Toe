@@ -4,7 +4,29 @@ function Gameboard () {
         " "," "," ",
     ]
     const getBoard = () => board;
-    return {getBoard}
+
+    function addMark (index,mark) {
+        board[index] = " ";
+        board[index] = mark;
+
+    }
+    addMark(2,'X')
+     function availableCells(arr) {
+        let Cells = []
+        let element = " "
+        let idx = arr.indexOf(element);
+        while (idx !== -1) {
+            Cells.push(idx)
+            idx = arr.indexOf(element, idx  + 1);
+        }
+        
+        console.log(Cells) 
+
+    }
+    availableCells(getBoard())
+    console.log(getBoard())
+    return {getBoard,addMark}
+
 }
 
 function Gameflow() {
@@ -26,3 +48,4 @@ function Gameflow() {
     return {switchPlayersTurn}
 }                  
 Gameflow()
+Gameboard()

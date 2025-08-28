@@ -17,6 +17,12 @@ function Gameflow() {
     let PlayerOne = Player('PlayerOne', 'X');
     let PlayerTwo = Player('PlayerTwo', 'O');
     let Players = [PlayerOne,PlayerTwo];
-    console.log(Players[0])
+    let activePlayer = Players[0]
+    let switchPlayersTurn = () => {
+        activePlayer = activePlayer  === Players[0] ? Players[1] : Players[0];
+        return activePlayer
+    }
+    console.log(switchPlayersTurn())
+    return {switchPlayersTurn}
 }                  
 Gameflow()

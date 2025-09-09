@@ -1,5 +1,5 @@
 function Gameboard () {
-    let board = [" "," "," ",
+    let board = ["X"," "," ",
         " "," "," ",
         " "," "," "
     ]
@@ -23,15 +23,14 @@ function Gameboard () {
             
         }
         return{PlayerOneCombination,PlayerTwoCombination}
+        
     }
-    PlayersCombination()
  
     return {addMark,getBoard,PlayersCombination}
 }
 
 function gameFlow () {
     let board = Gameboard()
-    let combinations = board.PlayersCombination
     function Players (name,mark)  {
         return {
             name: name,
@@ -50,11 +49,13 @@ function gameFlow () {
   [0, 4, 8], 
   [2, 4, 6]  
     ];
+    console.log(board.getBoard())
+    
     function checkWinner() {
         for(let winning of winningCombinations) {
-            if(winning.every(element => board.PlayerOneCombination.includes(element))) {
+            if(winning.every(element => board.PlayersCombination().PlayerOneCombination.includes(element))) {
                 console.log("Player One Win")
-            } else if (winning.every(element => board.PlayerTwoCombination.includes(element))) {
+            } else if (winning.every(element => board.PlayersCombination().PlayerTwoCombination.includes(element))) {
                 console.log('Player Two Win')
             }
         }
@@ -75,7 +76,7 @@ function gameFlow () {
     checkWinner()
     SwitchPlayers()
     console.log(board.addMark(5,activePlayer.mark))
-    checkWinner()
+   checkWinner()
     SwitchPlayers()
     console.log(board.addMark(3,activePlayer.mark))
     checkWinner()

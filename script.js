@@ -1,13 +1,15 @@
 function Gameboard () {
-    let board = ["X"," "," ",
+    let board = [" "," "," ",
         " "," "," ",
         " "," "," "
     ]
     function addMark(index,mark) {
-        board[index] === " ";
-        board[index] = mark
-        return board;
-        
+        if(board[index] === " ") {
+           board[index] = mark
+        } else {
+            console.log("You Cant Place Here ")
+        }
+        return board;    
     }
     let getBoard = () => board
     function PlayersCombination() {
@@ -25,6 +27,7 @@ function Gameboard () {
         return{PlayerOneCombination,PlayerTwoCombination}
         
     }
+    
  
     return {addMark,getBoard,PlayersCombination}
 }
@@ -72,6 +75,8 @@ function gameFlow () {
   
     
     console.log(players[1])
+    console.log(board.addMark(1,activePlayer.mark))
+    SwitchPlayers()
     console.log(board.addMark(1,activePlayer.mark))
     checkWinner()
     SwitchPlayers()

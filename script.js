@@ -52,7 +52,6 @@ function gameFlow () {
   [0, 4, 8], 
   [2, 4, 6]  
     ];
-    console.log(board.getBoard())
     
     function checkWinner() {
         for(let winning of winningCombinations) {
@@ -72,25 +71,26 @@ function gameFlow () {
         activePlayer = activePlayer === players[0] ? players[1] : players[0]
         return activePlayer
     }
-  
     
-    console.log(players[1])
-    console.log(board.addMark(1,activePlayer.mark))
-    SwitchPlayers()
-    console.log(board.addMark(1,activePlayer.mark))
-    checkWinner()
-    SwitchPlayers()
-    console.log(board.addMark(5,activePlayer.mark))
-   checkWinner()
-    SwitchPlayers()
-    console.log(board.addMark(3,activePlayer.mark))
-    checkWinner()
-    SwitchPlayers()
-    console.log(board.addMark(4,activePlayer.mark))
-    checkWinner()
-        SwitchPlayers()
-    console.log(board.addMark(2,activePlayer.mark))
-    checkWinner()
+    return {
+        checkWinner,
+        activePlayer,
+
+    }
+}
+
+function ScreenController () {
+    const game = gameFlow();
+    const GameBoard = Gameboard()
+    const playerTurnDiv = document.querySelector('.turn');
+    const boardDiv = document.querySelector('.board');
+    const updateScreen  = () => {
+        boardDiv.textContent = " "
+    }
+    const board = GameBoard.getBoard()
+    const activePlayer  = game.activePlayer
+    console.log(activePlayer)
 
 }
+ScreenController()
 gameFlow()

@@ -11,6 +11,7 @@ function Gameboard () {
         }
         return board;    
     }
+  
     let getBoard = () => board
     function PlayersCombination() {
         let PlayerOneCombination = []
@@ -63,6 +64,7 @@ function gameFlow () {
         }
 
     }
+
     let PlayerOne = Players('PlayerOne', 'X');
     let PlayerTwo = Players('PlayerTwo', 'O');
     const players = [PlayerOne,PlayerTwo]
@@ -71,26 +73,52 @@ function gameFlow () {
         activePlayer = activePlayer === players[0] ? players[1] : players[0]
         return activePlayer
     }
+    const getActivePlayer = () => activePlayer
+      const playRound = (index) => {
+        console.log(`Dropping ${getActivePlayer().name}'s mark into index ${index}...`);
+        board.addMark(index,getActivePlayer().mark)
+        checkWinner()
+        SwitchPlayers()
+    }
     
     return {
         checkWinner,
-        activePlayer,
+        getActivePlayer,
+        playRound,
+        getBoard: board.getBoard
 
     }
 }
-
 function ScreenController () {
+    const PlayerTurnDiv = document.querySelector('.turn');
+    const DisplayBoard = document.querySelector('.board');
     const game = gameFlow();
-    const GameBoard = Gameboard()
-    const playerTurnDiv = document.querySelector('.turn');
-    const boardDiv = document.querySelector('.board');
-    const updateScreen  = () => {
-        boardDiv.textContent = " "
-    }
-    const board = GameBoard.getBoard()
-    const activePlayer  = game.activePlayer
-    console.log(activePlayer)
 
+    const updateScreen = () => {
+        DisplayBoard.textContent = " ";
+       const board = game.getBoard()
+       const activePlayer = game.getActivePlayer()
+       PlayerTurnDiv.textContent = `${activePlayer.name}'s Turn`
+       board.forEach((cell,index) => {
+        const cellDiv = document.createElement('div');
+        cellDiv.classList.add('cell');
+        cellDiv.dataset.cell = index;
+        DisplayBoard.appendChild(cellDiv)
+       })
+    }
+
+    function handleScreenClick(e) {
+        const selectedCell = e.target.dataset.cell
+        game.playRound(selectedCell)
+        updateScreen()
+    }
+       DisplayBoard.addEventListener('click', handleScreenClick)
+       updateScreen()
+
+    
 }
+
+
+
+
 ScreenController()
-gameFlow()

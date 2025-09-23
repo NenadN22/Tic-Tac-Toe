@@ -26,7 +26,7 @@ function GameFlow () {
             mark: mark
         }
     }
-    let winningCombinations = [[0,1,2],[0,4,8],[0,3,6]
+    let winningCombinations = [[0,1,2],[0,4,8],[0,3,6],
 [1,4,7],[2,5,8],[2,4,6],[3,4,5],[6,7,8]]
     let Player1 = Player('Player1','X');
     let Player2 = Player('Player2', 'O');
@@ -36,25 +36,43 @@ function GameFlow () {
         activePlayer = activePlayer  === Players[0] ? Players[1] : Players[0]
     }
 
-    function checkWinner() {
+    function PlayersCombinations() {
         let board = game.getBoard()
         let PlayerOneCombination = []
         let PlayerTwoCombination = []
-        for(i = 0; i < board.length; i++) {
+        for(let i = 0; i < board.length; i++) {
             if(board[i] === 'X') {
                 PlayerOneCombination.push(i)
-                return PlayerOneCombination
             } else if (board[i] === 'O') {
                 PlayerTwoCombination.push(i)
-                return PlayerTwoCombination
-            }
-            
-            
-
+            }  
         }
+        console.log(PlayerOneCombination)
+        console.log(PlayerTwoCombination)
+        return {PlayerOneCombination,PlayerTwoCombination}
         
     }
-    game.addMark(0, activePlayer.mark)
+
+    function checkWinner () {
+        let combos = PlayersCombinations()
+        let winner ;
+        for(let i = 0; i < winningCombinations.length; i++) {
+            if(winningCombinations[i].every(val => combos.PlayerOneCombination.includes(val))){
+                winner = 'Player One Win'
+            }  else if (winningCombinations[i].every(val => combos.PlayerTwoCombination.includes(val))) {
+                winner = 'Player Two Win'
+            } else {
+                winner = 'No One Win Keep Playing'
+            }
+             
+            
+        }
+        console.log(winner)
+        
+    }
+    
+  
+    console.log(game.getBoard())
     checkWinner()
     
 }

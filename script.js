@@ -35,7 +35,7 @@ function GameFlow () {
     function switchPlayers () {
         activePlayer = activePlayer  === Players[0] ? Players[1] : Players[0]
     }
-
+    const getActivePlayer = () => activePlayer
     function PlayersCombinations() {
         let board = game.getBoard()
         let PlayerOneCombination = []
@@ -55,28 +55,40 @@ function GameFlow () {
 
     function checkWinner () {
         let combos = PlayersCombinations()
-        let winner ;
+        let winner = 'No One Win Keep Playing' ;
         for(let i = 0; i < winningCombinations.length; i++) {
             if(winningCombinations[i].every(val => combos.PlayerOneCombination.includes(val))){
                 winner = 'Player One Win'
             }  else if (winningCombinations[i].every(val => combos.PlayerTwoCombination.includes(val))) {
                 winner = 'Player Two Win'
-            } else {
-                winner = 'No One Win Keep Playing'
             }
              
-            
         }
-        console.log(winner)
-        
+        console.log(winner)   
     }
-    
-  
-    console.log(game.getBoard())
-    checkWinner()
-    
 }
 
+function ScreenController() {
+    let game = GameFlow()
+    let playerTurnDiv = document.querySelector('.turn')
+    let container = document.querySelector('.container');
+    let screenBoard = document.querySelector('.board');
+    const updateScreen = () => {
+        screenBoard.textContent = "";
+        const boardForScreen = game.getBoard();
+        const activePlayer  = game.getActivePlayer();
+        playerTurnDiv.textContent = `${activePlayer}'s Turn...`
+        board.forEach((index) => {
+            console.log(board)
+            console.log(index)
+            const divCell = document.createElement('div')
+            divCell.classList.add('cell')
+            divCell.dataset.index = index
+            screenBoard.appendChild(divCell)
+        })
+    }
+    updateScreen()
+}
+ScreenController()
 GameFlow()
-
 

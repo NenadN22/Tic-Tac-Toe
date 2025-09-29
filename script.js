@@ -41,6 +41,7 @@ function Gameflow() {
                 PlayerTwoCombination.push(i)
             } 
         }
+        console.log(PlayerOneCombination)
         return {PlayerOneCombination,PlayerTwoCombination}
     }
     let Player1 = Player('Player1', 'X');
@@ -52,14 +53,29 @@ function Gameflow() {
         return activePlayer
     }
     function checkWinner() {
-
+        let winner = "Keep Play No One Win"
+        let combos = PlayersCombinations()
+        for(let i = 0; i < winningCombinations.length; i++) {
+            if(winningCombinations[i].every((val) => combos.PlayerOneCombination.includes(val))) {
+                winner =  'Player One Win'
+            } else if (winningCombinations[i].every((val) => combos.PlayerTwoCombination.includes(val))) {
+                winner = 'Player Two Win'
+            }
+            return winner
+        }
+          
+        
     }
     game.addMark(0,activePlayer.mark)
     game.addMark(1,activePlayer.mark)
+  
+    
     switchPlayer()
     game.addMark(3,activePlayer.mark)
+    console.log(board)
     PlayersCombinations()
     console.log(PlayersCombinations())
+    console.log(checkWinner())
 }
 Gameflow()
 

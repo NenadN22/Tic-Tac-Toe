@@ -60,7 +60,7 @@ function Gameflow() {
                 winner =  'Player One Win'
             } else if (winningCombinations[i].every((val) => combos.PlayerTwoCombination.includes(val))) {
                 winner = 'Player Two Win'
-            }
+            } 
             return winner
         }
           
@@ -76,6 +76,22 @@ function Gameflow() {
     PlayersCombinations()
     console.log(PlayersCombinations())
     console.log(checkWinner())
+
+    return {activePlayer,switchPlayer,checkWinner,board}
 }
+function screenUpdater() {
+    let boardDiv = document.querySelector('.board');
+    let screenGame = Gameflow()
+    let boardScreen = screenGame.board
+    boardScreen.forEach((cell,index) => {
+        let cellDiv = document.createElement('div');
+        cellDiv.classList.add('cell');
+        cellDiv.dataset.cell =  index;
+        boardDiv.appendChild(cellDiv)
+
+    })
+
+}
+screenUpdater()
 Gameflow()
 

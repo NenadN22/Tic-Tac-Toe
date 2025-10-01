@@ -44,6 +44,12 @@ function Gameflow() {
         console.log(PlayerOneCombination)
         return {PlayerOneCombination,PlayerTwoCombination}
     }
+    const playRound = (index) => {
+        console.log(
+            `Dropping${activePlayer.name}' s token into ${index}`
+        )
+    }
+  
     let Player1 = Player('Player1', 'X');
     let Player2 = Player('Player2', 'O');
     let Players = [Player1,Player2]
@@ -66,31 +72,37 @@ function Gameflow() {
           
         
     }
-    game.addMark(0,activePlayer.mark)
-    game.addMark(1,activePlayer.mark)
-  
-    
-    switchPlayer()
-    game.addMark(3,activePlayer.mark)
-    console.log(board)
-    PlayersCombinations()
-    console.log(PlayersCombinations())
-    console.log(checkWinner())
 
-    return {activePlayer,switchPlayer,checkWinner,board}
+    return {activePlayer,switchPlayer,checkWinner,board,addMark: game.addMark,playRound}
 }
 function screenUpdater() {
     let boardDiv = document.querySelector('.board');
     let screenGame = Gameflow()
     let boardScreen = screenGame.board
+    function updateScreen() {
+        boardDiv.textContent = " ";
+        const activePlayer = screenGame.switchPlayer();
     boardScreen.forEach((cell,index) => {
         let cellDiv = document.createElement('div');
         cellDiv.classList.add('cell');
         cellDiv.dataset.cell =  index;
+        cellDiv.textContent = cell
         boardDiv.appendChild(cellDiv)
 
-    })
+        })
+    }
+    updateScreen()
+    const handleClick = (e)  =>{
+        const selectedCell = e.target.dataset.cell;
+        let index = parseInt(e.target.dataset.cell)
+        if(!selectedCell) return
+        selectedCell.textContent =  (screenGame.addMark(index,screenGame.activePlayer.mark))
+        screenGame.playRound(selectedCell)
+        updateScreen()
+    }
+    boardDiv.addEventListener('click',handleClick);
 
+    updateScreen()
 }
 screenUpdater()
 Gameflow()

@@ -5,6 +5,7 @@ body {
     text-align: center;
     width: 100vw;
     height: 100vh;
+    margin: 0;
 }
 .container {
     width: 100%;
@@ -32,5 +33,15 @@ body {
     font-family:Verdana, Geneva, Tahoma, sans-serif
 }
 .reset {
-    margin-top: 2vw;
+    padding: 10px 30px;
+    background-color: rgb(255, 238, 2);
+}
+.header {
+    font-family: 'Carmen', sans-serif;
+    font-size: 45px;
+}
+h3 {
+    font-family: 'Carmen', sans-serif;
+    font-size: 35px;
+
 }

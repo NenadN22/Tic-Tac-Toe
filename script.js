@@ -64,7 +64,7 @@ function Gameflow() {
     function checkWinner() {
         let isWinnerFound = false;
         let winner = "Keep Play No One Win"
-        let combos = PlayersCombinations()
+        let combos = PlayersCombinations()  
         for(let i = 0; i < winningCombinations.length; i++) {
             if(winningCombinations[i].every((val) => combos.PlayerOneCombination.includes(val))) {
                 winner =  ('Player One Win')
@@ -73,7 +73,16 @@ function Gameflow() {
             } else if (winningCombinations[i].every((val) => combos.PlayerTwoCombination.includes(val))) {
                 winner = ('Player Two Win');
                 isWinnerFound = true;
+                break
             }
+            
+        }
+        for(let i = 0; i < board.length; i++) {
+            if(!isWinnerFound && !board.includes(" ")) {
+                 winner  = "It's a draw";
+                
+            }
+           
             
         }
         return {winner,isWinnerFound}
@@ -115,13 +124,21 @@ function screenUpdater() {
         if(screenGame.checkWinner().isWinnerFound){
             isOn = false;
         }
-        playerTurn.textContent = `${screenGame.getActivePlayer().name} Turn`
+        
         screenGame.switchPlayer()
         screenGame.checkWinner()
         console.log(screenGame.checkWinner())
     }
     boardDiv.addEventListener('click',handleClick);
     updateScreen()
+    resetButton.addEventListener('click', () => {
+        screenGame = Gameflow();
+        boardScreen = screenGame.board;
+        gameWinner.textContent = " ";
+        isOn = true;
+        updateScreen()
+        
+    })
      
 }
 screenUpdater()
